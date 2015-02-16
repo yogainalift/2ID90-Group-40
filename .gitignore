@@ -1,0 +1,13 @@
+/bin/
+
+*.classpath
+*.project
+/nbproject/private/
+nbproject/project.xml
+nbproject/project.properties
+nbproject/genfiles.properties
+build.xml
+manifest.mf
+nbproject/build-impl.xml
+/build/
+/dist/
