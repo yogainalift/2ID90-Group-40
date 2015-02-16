@@ -26,14 +26,25 @@ public class AlphaBetaSearcher {
         stopped = true;
     }
 
-    int alphaBeta(GameNode node, int alpha, int beta)
+    int alphaBeta(GameNode node, int alpha, int beta, boolean maxPlayer, int depth)
             throws AIStoppedException {
+        //To be able to stop alpha-beta function.
         if (stopped) {
             stopped = false;
             throw new AIStoppedException();
         }
+        
+        if (depth == 0 || node.getGameState().getMoves() == null) {
+            return 1; //the heuristic value of node
+        }
+        
+        if (maxPlayer) {
+            node.value = Integer.MIN_VALUE;
+            for (GameNode child : node.){
 
-        state = (GameState) node.getGameState();
+            }
+        }
+        state = (GameState) node.getGameState(); //they 
         List<Move> moves = state.getMoves();
         for (Move move : moves) {
             state.doMove(move);
