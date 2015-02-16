@@ -26,7 +26,7 @@ public class TselepidasPlayer extends DraughtsPlayer {
         System.out.println(moves);
         s.doMove(moves.get(0));
         //moves = s.getMoves();
-        System.out.println(moves);
+        System.out.println(moves + "are you cerial?");
         System.out.println(s);
         return moves.get(0);
     }

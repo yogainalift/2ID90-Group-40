@@ -17,7 +17,8 @@ public class GameNode {
 
     GameNode node;
     Move bestMove;
-
+    DraughtsState state;
+    
     public GameNode(GameNode node) {
         this.node = node;
     }
