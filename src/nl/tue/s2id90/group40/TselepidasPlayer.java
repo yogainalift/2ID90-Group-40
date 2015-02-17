@@ -27,21 +27,22 @@ public class TselepidasPlayer extends DraughtsPlayer {
      */
     public Move getMove(DraughtsState s) {
         List<Move> moves = s.getMoves();
-        System.out.println(moves);
-        s.doMove(moves.get(0));
         
         //init a gamenode and getWhiteSize or getBlackSize is possible.
         
+        Move best = null;
+        
         GameNode someNode = new GameNode(s);
         try {
-            int score = abs.alphaBeta(someNode, Integer.MIN_VALUE, Integer.MAX_VALUE, true, 3);
+            int score = abs.alphaBeta(someNode, Integer.MIN_VALUE, Integer.MAX_VALUE, true, 7);
+            best = someNode.getBestMove();
             System.out.println(score);
         } catch (AlphaBetaSearcher.AIStoppedException ex) {
             Logger.getLogger(TselepidasPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(s.getMoves());
         
-        return moves.get(0);
+        return best;
     }
 
     @Override
