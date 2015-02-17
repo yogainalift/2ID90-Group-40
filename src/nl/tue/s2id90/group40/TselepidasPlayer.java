@@ -33,6 +33,7 @@ public class TselepidasPlayer extends DraughtsPlayer {
         Move best = null;
         
         GameNode someNode = new GameNode(s);
+        abs.startTime();
         try {
             int score = abs.alphaBeta(someNode, Integer.MIN_VALUE, Integer.MAX_VALUE, true, 7);
             best = someNode.getBestMove();

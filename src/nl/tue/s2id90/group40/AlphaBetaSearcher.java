@@ -16,6 +16,7 @@ import org10x10.dam.game.Move;
 public class AlphaBetaSearcher {
 
     private boolean stopped;
+    private static long start;
 
     public AlphaBetaSearcher() {
         this.stopped = false;
@@ -25,6 +26,14 @@ public class AlphaBetaSearcher {
         stopped = true;
     }
 
+    public void startTime(){
+         start = System.currentTimeMillis();
+    }
+    
+    public long getTime(){
+        return start;
+    }
+    
     int alphaBeta(GameNode node, int alpha, int beta, boolean maxPlayer, int depth)
             throws AIStoppedException {
         //To be able to stop alpha-beta function.
@@ -34,9 +43,11 @@ public class AlphaBetaSearcher {
             stopped = false;
             throw new AIStoppedException();
         }
-        
         if (depth == 0 || state.isEndState()) {
             return node.getPiecesSize(); //the heuristic value of node
+        }
+        if (System.currentTimeMillis()-start>2000){
+            stopped = true;
         }
         
         int v;
@@ -88,17 +99,16 @@ public class AlphaBetaSearcher {
             }            
             
         }
-
         node.setBestMove(bestMove);
         node.setValue(v);
+        System.out.println(System.currentTimeMillis()-getTime());
         return v;
-
     }
 
     public static class AIStoppedException extends Exception {
 
         public AIStoppedException() {
-            System.out.println("error code 6wow'denough9");
+            System.out.println("Your time is out.");
         }
     }
 }
