@@ -36,7 +36,7 @@ public class AlphaBetaSearcher {
         }
         
         if (depth == 0 || state.isEndState()) {
-            return 1; //the heuristic value of node
+            return node.getPiecesSize(); //the heuristic value of node
         }
         
         int v;
@@ -95,7 +95,7 @@ public class AlphaBetaSearcher {
 
     }
 
-    private static class AIStoppedException extends Exception {
+    public static class AIStoppedException extends Exception {
 
         public AIStoppedException() {
             System.out.println("error code 6wow'denough9");
