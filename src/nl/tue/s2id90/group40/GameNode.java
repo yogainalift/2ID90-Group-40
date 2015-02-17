@@ -39,23 +39,18 @@ public class GameNode {
         return bestMove;
     }
 
-    int getWhiteSize() {
-        int counter = 0;
+    //whites are more = +
+    //blacks are more = -
+    int getPiecesSize() {
+        int[] counter = new int[]{0, 0};
         for (Integer i : state.getPieces()) {
             if (i == 1) {
-                counter++;
+                counter[0]+=1;
+            }
+            else if (i==2){
+                counter[1]+=1;
             }
         }
-        return counter;
-    }
-
-    int getBlackSize() {
-        int counter = 0;
-        for (Integer i : state.getPieces()) {
-            if (i == 2) {
-                counter++;
-            }
-        }
-        return counter;
+        return counter[0]-counter[1];
     }
 }

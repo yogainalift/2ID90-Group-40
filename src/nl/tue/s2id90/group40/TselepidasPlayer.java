@@ -26,7 +26,7 @@ public class TselepidasPlayer extends DraughtsPlayer {
         System.out.println(moves);
         
         //init a gamenode and getWhiteSize or getBlackSize is possible.
-        System.out.println(new GameNode(s).getWhiteSize());
+        System.out.println(new GameNode(s).getPiecesSize());
         return moves.get(0);
     }
 
