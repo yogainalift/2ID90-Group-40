@@ -6,7 +6,7 @@
 package nl.tue.s2id90.group40;
 
 import java.util.List;
-import nl.tue.s2id90.game.GameState;
+import nl.tue.s2id90.draughts.DraughtsState;
 import org10x10.dam.game.Move;
 
 /**
@@ -15,7 +15,6 @@ import org10x10.dam.game.Move;
  */
 public class AlphaBetaSearcher {
 
-    GameState state;
     private boolean stopped;
 
     public AlphaBetaSearcher() {
@@ -29,32 +28,72 @@ public class AlphaBetaSearcher {
     int alphaBeta(GameNode node, int alpha, int beta, boolean maxPlayer, int depth)
             throws AIStoppedException {
         //To be able to stop alpha-beta function.
+
+        DraughtsState state = node.getGameState(); //they 
         if (stopped) {
             stopped = false;
             throw new AIStoppedException();
         }
-        
-        if (depth == 0 || node.getGameState().getMoves() == null) {
+
+        if (depth == 0 || state.isEndState()) {
             return 1; //the heuristic value of node
         }
-       /* 
-        if (maxPlayer) {
-            node.value = Integer.MIN_VALUE;
-            for (GameNode child : node){
 
+        int v;
+        Move bestMove;
+
+        if (maxPlayer) {
+
+            v = Integer.MIN_VALUE;
+            List<Move> moves = state.getMoves();
+            bestMove = moves.get(0);
+            for (Move move : moves) {
+                state.doMove(move);  // Check if state changes after doMove
+                GameNode child = new GameNode(state);
+                int alphaBeta = alphaBeta(child, alpha, beta, false, depth--);
+
+                if (v < alphaBeta) {
+                    bestMove = move;
+                    v = alphaBeta;
+                }
+                if (v > alpha) {
+                    alpha = v;
+                }
+                state.undoMove(move);
+                if (beta <= alpha) {
+                    break;
+                }
             }
         }
-        state = (GameState) node.getGameState(); //they 
-        List<Move> moves = state.getMoves();
-        for (Move move : moves) {
-            state.doMove(move);
-            //...//recursive call
-            state.undoMove(move);
+        else {
+
+            v = Integer.MAX_VALUE;
+            List<Move> moves = state.getMoves();
+            bestMove = moves.get(0);
+            for (Move move : moves) {
+                state.doMove(move);  // Check if state changes after doMove
+                GameNode child = new GameNode(state);
+                int alphaBeta = alphaBeta(child, alpha, beta, true, depth--);
+
+                if (v > alphaBeta) {
+                    bestMove = move;
+                    v = alphaBeta;
+                }
+                if (v < alpha) {
+                    alpha = v;
+                }
+                state.undoMove(move);
+                if (beta <= alpha) {
+                    break;
+                }
+            }
+
         }
-               */
-        // node.setBestMove(bestMove);
-        //...//
-        return 1;
+
+        node.setBestMove(bestMove);
+        node.setValue(v);
+        return v;
+
     }
 
     private static class AIStoppedException extends Exception {
