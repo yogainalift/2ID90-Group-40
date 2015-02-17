@@ -40,17 +40,17 @@ public class AlphaBetaSearcher {
         }
         
         int v;
-        Move bestMove;
+        Move bestMove = null;
         
         if (maxPlayer) {
             
             v = Integer.MIN_VALUE;
             List<Move> moves = state.getMoves();
-            bestMove = moves.get(0);
+            if (moves != null) bestMove = moves.get(0);
             for (Move move : moves) {
                 state.doMove(move);  // Check if state changes after doMove
                 GameNode child = new GameNode(state);
-                int alphaBeta = alphaBeta(child, alpha, beta, false, depth--);
+                int alphaBeta = alphaBeta(child, alpha, beta, false, depth - 1);
                 
                 if (v < alphaBeta) {
                     bestMove = move;
@@ -68,11 +68,11 @@ public class AlphaBetaSearcher {
 
             v = Integer.MAX_VALUE;
             List<Move> moves = state.getMoves();
-            bestMove = moves.get(0);
+            if (moves != null) bestMove = moves.get(0);
             for (Move move : moves) {
                 state.doMove(move);  // Check if state changes after doMove
                 GameNode child = new GameNode(state);
-                int alphaBeta = alphaBeta(child, alpha, beta, true, depth--);
+                int alphaBeta = alphaBeta(child, alpha, beta, true, depth - 1);
                 
                 if (v > alphaBeta) {
                     bestMove = move;

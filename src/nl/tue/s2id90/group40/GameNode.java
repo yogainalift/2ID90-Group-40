@@ -5,7 +5,6 @@ package nl.tue.s2id90.group40;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.util.ArrayList;
 import nl.tue.s2id90.draughts.DraughtsState;
 import org10x10.dam.game.Move;
 
@@ -22,7 +21,6 @@ public class GameNode {
     public GameNode(DraughtsState s) {
         this.state = s;
         this.value = 0;
-        this.bestMove = state.getMoves().get(0);
     }
 
     DraughtsState getGameState() {

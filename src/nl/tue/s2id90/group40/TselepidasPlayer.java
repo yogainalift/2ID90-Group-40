@@ -28,6 +28,7 @@ public class TselepidasPlayer extends DraughtsPlayer {
     public Move getMove(DraughtsState s) {
         List<Move> moves = s.getMoves();
         System.out.println(moves);
+        s.doMove(moves.get(0));
         
         //init a gamenode and getWhiteSize or getBlackSize is possible.
         
@@ -38,6 +39,7 @@ public class TselepidasPlayer extends DraughtsPlayer {
         } catch (AlphaBetaSearcher.AIStoppedException ex) {
             Logger.getLogger(TselepidasPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(s.getMoves());
         
         return moves.get(0);
     }
