@@ -38,4 +38,24 @@ public class GameNode {
         //FIRST FIND-TODO
         return bestMove;
     }
+
+    int getWhiteSize() {
+        int counter = 0;
+        for (Integer i : state.getPieces()) {
+            if (i == 1) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    int getBlackSize() {
+        int counter = 0;
+        for (Integer i : state.getPieces()) {
+            if (i == 2) {
+                counter++;
+            }
+        }
+        return counter;
+    }
 }

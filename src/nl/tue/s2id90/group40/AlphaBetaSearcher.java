@@ -37,10 +37,10 @@ public class AlphaBetaSearcher {
         if (depth == 0 || node.getGameState().getMoves() == null) {
             return 1; //the heuristic value of node
         }
-        
+       /* 
         if (maxPlayer) {
             node.value = Integer.MIN_VALUE;
-            for (GameNode child : node.){
+            for (GameNode child : node){
 
             }
         }
@@ -51,6 +51,7 @@ public class AlphaBetaSearcher {
             //...//recursive call
             state.undoMove(move);
         }
+               */
         // node.setBestMove(bestMove);
         //...//
         return 1;

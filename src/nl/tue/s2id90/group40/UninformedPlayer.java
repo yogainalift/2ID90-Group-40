@@ -22,7 +22,6 @@ public class UninformedPlayer extends DraughtsPlayer {
     /** @return a random move **/
     public Move getMove(DraughtsState s) {
         List<Move> moves = s.getMoves();
-        System.out.println("I did a ducking move" + moves + " ");
         Collections.shuffle(moves);
         return moves.get(0);
     }
