@@ -16,10 +16,12 @@ import org10x10.dam.game.Move;
 public class GameNode {
 
     Move bestMove;
+    int value;
     DraughtsState state;
 
     public GameNode(DraughtsState s) {
         this.state = s;
+        this.value = 0;
         this.bestMove = state.getMoves().get(0);
     }
 
@@ -45,12 +47,16 @@ public class GameNode {
         int[] counter = new int[]{0, 0};
         for (Integer i : state.getPieces()) {
             if (i == 1) {
-                counter[0]+=1;
+                counter[0] += 1;
             }
-            else if (i==2){
-                counter[1]+=1;
+            else if (i == 2) {
+                counter[1] += 1;
             }
         }
-        return counter[0]-counter[1];
+        return counter[0] - counter[1];
+    }
+
+    void setValue(int v) {
+        value = v;
     }
 }

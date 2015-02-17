@@ -28,22 +28,22 @@ public class AlphaBetaSearcher {
     int alphaBeta(GameNode node, int alpha, int beta, boolean maxPlayer, int depth)
             throws AIStoppedException {
         //To be able to stop alpha-beta function.
-
+        
         DraughtsState state = node.getGameState(); //they 
         if (stopped) {
             stopped = false;
             throw new AIStoppedException();
         }
-
+        
         if (depth == 0 || state.isEndState()) {
             return 1; //the heuristic value of node
         }
-
+        
         int v;
         Move bestMove;
-
+        
         if (maxPlayer) {
-
+            
             v = Integer.MIN_VALUE;
             List<Move> moves = state.getMoves();
             bestMove = moves.get(0);
@@ -51,7 +51,7 @@ public class AlphaBetaSearcher {
                 state.doMove(move);  // Check if state changes after doMove
                 GameNode child = new GameNode(state);
                 int alphaBeta = alphaBeta(child, alpha, beta, false, depth--);
-
+                
                 if (v < alphaBeta) {
                     bestMove = move;
                     v = alphaBeta;
@@ -62,10 +62,9 @@ public class AlphaBetaSearcher {
                 state.undoMove(move);
                 if (beta <= alpha) {
                     break;
-                }
+                } 
             }
-        }
-        else {
+        } else {
 
             v = Integer.MAX_VALUE;
             List<Move> moves = state.getMoves();
@@ -74,7 +73,7 @@ public class AlphaBetaSearcher {
                 state.doMove(move);  // Check if state changes after doMove
                 GameNode child = new GameNode(state);
                 int alphaBeta = alphaBeta(child, alpha, beta, true, depth--);
-
+                
                 if (v > alphaBeta) {
                     bestMove = move;
                     v = alphaBeta;
@@ -85,9 +84,9 @@ public class AlphaBetaSearcher {
                 state.undoMove(move);
                 if (beta <= alpha) {
                     break;
-                }
-            }
-
+                } 
+            }            
+            
         }
 
         node.setBestMove(bestMove);
