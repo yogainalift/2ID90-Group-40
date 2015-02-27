@@ -20,14 +20,11 @@ public class AlphaBetaSearcher {
 
     public AlphaBetaSearcher() {
         this.stopped = false;
+        this.start = System.currentTimeMillis();
     }
 
     public void stop() {
         stopped = true;
-    }
-
-    public void startTime(){
-         start = System.currentTimeMillis();
     }
     
     public long getTime(){
@@ -37,7 +34,6 @@ public class AlphaBetaSearcher {
     int alphaBeta(GameNode node, int alpha, int beta, boolean maxPlayer, int depth)
             throws AIStoppedException {
         //To be able to stop alpha-beta function.
-        
         DraughtsState state = node.getGameState(); //they 
         if (stopped) {
             stopped = false;
@@ -46,7 +42,7 @@ public class AlphaBetaSearcher {
         if (depth == 0 || state.isEndState()) {
             return node.getPiecesSize(); //the heuristic value of node
         }
-        if (System.currentTimeMillis()-start>2000){
+        if (System.currentTimeMillis()-getTime()>3000){
             stopped = true;
         }
         
@@ -101,7 +97,7 @@ public class AlphaBetaSearcher {
         }
         node.setBestMove(bestMove);
         node.setValue(v);
-        System.out.println(System.currentTimeMillis()-getTime());
+        System.out.println(System.currentTimeMillis()-getTime() + " / " + depth);
         return v;
     }
 

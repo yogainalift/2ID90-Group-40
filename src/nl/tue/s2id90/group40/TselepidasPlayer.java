@@ -15,7 +15,7 @@ import org10x10.dam.game.Move;
  */
 public class TselepidasPlayer extends DraughtsPlayer {
 
-    AlphaBetaSearcher abs = new AlphaBetaSearcher();
+    AlphaBetaSearcher abs;
     
     public TselepidasPlayer() {
         super(UninformedPlayer.class.getResource("resources/optimist.png"));
@@ -33,15 +33,17 @@ public class TselepidasPlayer extends DraughtsPlayer {
         Move best = null;
         
         GameNode someNode = new GameNode(s);
-        abs.startTime();
+        abs = new AlphaBetaSearcher();
+        int i = 1;
         try {
-            int score = abs.alphaBeta(someNode, Integer.MIN_VALUE, Integer.MAX_VALUE, true, 7);
-            best = someNode.getBestMove();
-            System.out.println(score);
+            while (true) {
+                int score = abs.alphaBeta(someNode, Integer.MIN_VALUE, Integer.MAX_VALUE, true, i);
+                best = someNode.getBestMove();
+                i++;
+            }
         } catch (AlphaBetaSearcher.AIStoppedException ex) {
-            Logger.getLogger(TselepidasPlayer.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(TselepidasPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(s.getMoves());
         
         return best;
     }
