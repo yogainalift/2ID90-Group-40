@@ -30,6 +30,9 @@ public class TselepidasPlayer extends DraughtsPlayer {
         
         //init a gamenode and getWhiteSize or getBlackSize is possible.
         
+        if (moves.size() == 1) {
+            return moves.get(0);
+        }
         Move best = null;
         
         GameNode someNode = new GameNode(s);
@@ -37,8 +40,9 @@ public class TselepidasPlayer extends DraughtsPlayer {
         int i = 1;
         try {
             while (true) {
-                int score = abs.alphaBeta(someNode, Integer.MIN_VALUE, Integer.MAX_VALUE, true, i);
+                int score = abs.alphaBeta(someNode, Integer.MIN_VALUE, Integer.MAX_VALUE, s.isWhiteToMove(), i);
                 best = someNode.getBestMove();
+                System.out.println(i);
                 i++;
             }
         } catch (AlphaBetaSearcher.AIStoppedException ex) {

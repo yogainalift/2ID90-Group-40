@@ -97,7 +97,7 @@ public class AlphaBetaSearcher {
         }
         node.setBestMove(bestMove);
         node.setValue(v);
-        System.out.println(System.currentTimeMillis()-getTime() + " / " + depth);
+        //System.out.println(System.currentTimeMillis()-getTime() + " / " + depth);
         return v;
     }
 
