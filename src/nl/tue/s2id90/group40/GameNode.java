@@ -42,16 +42,17 @@ public class GameNode {
     //whites are more = +
     //blacks are more = -
     int getPiecesSize() {
-        int[] counter = new int[]{0, 0};
+        int whitePieces=0;
+        int blackPieces=0;
         for (Integer i : state.getPieces()) {
             if (i == 1) {
-                counter[0] += 1;
+                whitePieces++;
             }
             else if (i == 2) {
-                counter[1] += 1;
+                blackPieces++;
             }
         }
-        return counter[0] - counter[1];
+        return whitePieces-blackPieces;
     }
 
     void setValue(int v) {
