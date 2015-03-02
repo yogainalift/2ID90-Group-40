@@ -41,7 +41,7 @@ public class GameNode {
 
     //whites are more = +
     //blacks are more = -
-    int getPiecesSize() {
+    int simpleHeuristic() {
         int whitePieces=0;
         int blackPieces=0;
         for (Integer i : state.getPieces()) {

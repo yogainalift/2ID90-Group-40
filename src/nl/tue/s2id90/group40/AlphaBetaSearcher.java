@@ -40,7 +40,7 @@ public class AlphaBetaSearcher {
             throw new AIStoppedException();
         }
         if (depth == 0 || state.isEndState()) {
-            return node.getPiecesSize(); //the heuristic value of node
+            return node.simpleHeuristic(); //the heuristic value of node
         }
         if (System.currentTimeMillis()-getTime()>3000){
             stopped = true;
