@@ -92,12 +92,10 @@ public class AlphaBetaSearcher {
                 if (beta <= alpha) {
                     break;
                 } 
-            }            
+            }
             
         }
         node.setBestMove(bestMove);
-        node.setValue(v);
-        //System.out.println(System.currentTimeMillis()-getTime() + " / " + depth);
         return v;
     }
 

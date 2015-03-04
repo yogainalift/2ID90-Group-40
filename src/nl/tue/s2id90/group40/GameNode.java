@@ -15,12 +15,10 @@ import org10x10.dam.game.Move;
 public class GameNode {
 
     Move bestMove;
-    int value;
     DraughtsState state;
 
     public GameNode(DraughtsState s) {
         this.state = s;
-        this.value = 0;
     }
 
     DraughtsState getGameState() {
@@ -54,8 +52,5 @@ public class GameNode {
         }
         return whitePieces-blackPieces;
     }
-
-    void setValue(int v) {
-        value = v;
-    }
+    
 }

@@ -14,8 +14,9 @@ import org10x10.dam.game.Move;
  * @author huub
  */
 public class TselepidasPlayer extends DraughtsPlayer {
-
-    AlphaBetaSearcher abs;
+    
+    private static boolean stopped;
+    private static long startTime;
     
     public TselepidasPlayer() {
         super(UninformedPlayer.class.getResource("resources/optimist.png"));
@@ -28,32 +29,110 @@ public class TselepidasPlayer extends DraughtsPlayer {
     public Move getMove(DraughtsState s) {
         List<Move> moves = s.getMoves();
         
-        //init a gamenode and getWhiteSize or getBlackSize is possible.
-        
+        /**
+         * If there is only one move, do it.
+         */
         if (moves.size() == 1) {
             return moves.get(0);
         }
-        Move best = null;
+        
+        Move best = null; // Storing the last best node of iterative deepening
         
         GameNode someNode = new GameNode(s);
-        abs = new AlphaBetaSearcher();
         int i = 1;
         try {
             while (true) {
-                int score = abs.alphaBeta(someNode, Integer.MIN_VALUE, Integer.MAX_VALUE, s.isWhiteToMove(), i);
-                best = someNode.getBestMove();
                 System.out.println(i);
-                i++;
+                startTime = System.currentTimeMillis();
+                int score = alphaBeta(someNode, Integer.MIN_VALUE, Integer.MAX_VALUE, s.isWhiteToMove(), i++);
+                stopped = false;
+                best = someNode.getBestMove();
             }
-        } catch (AlphaBetaSearcher.AIStoppedException ex) {
-            //Logger.getLogger(TselepidasPlayer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (AIStoppedException ex) { }
         
         return best;
     }
 
+    
+    int alphaBeta(GameNode node, int alpha, int beta, boolean maxPlayer, int depth)
+            throws AIStoppedException {
+        //To be able to stop alpha-beta function.
+        DraughtsState state = node.getGameState(); //they 
+        if (stopped) {
+            stopped = false;
+            throw new AIStoppedException();
+        }
+        if (depth == 0 || state.isEndState()) {
+            return node.simpleHeuristic(); //the heuristic value of node
+        }
+        
+        int v;
+        Move bestMove = null;
+        
+        if (maxPlayer) {
+            
+            v = Integer.MIN_VALUE;
+            List<Move> moves = state.getMoves();
+            if (moves != null) bestMove = moves.get(0);
+            for (Move move : moves) {
+                state.doMove(move);  // Check if state changes after doMove
+                GameNode child = new GameNode(state);
+                int alphaBeta = alphaBeta(child, alpha, beta, false, depth - 1);
+                
+                if (v < alphaBeta) {
+                    bestMove = move;
+                    v = alphaBeta;
+                }
+                if (v > alpha) {
+                    alpha = v;
+                }
+                state.undoMove(move);
+                if (beta <= alpha) {
+                    break;
+                } 
+            }
+        } else {
+
+            v = Integer.MAX_VALUE;
+            List<Move> moves = state.getMoves();
+            if (moves != null) bestMove = moves.get(0);
+            for (Move move : moves) {
+                state.doMove(move);  // Check if state changes after doMove
+                GameNode child = new GameNode(state);
+                int alphaBeta = alphaBeta(child, alpha, beta, true, depth - 1);
+                
+                if (v > alphaBeta) {
+                    bestMove = move;
+                    v = alphaBeta;
+                }
+                if (v < alpha) {
+                    alpha = v;
+                }
+                state.undoMove(move);
+                if (beta <= alpha) {
+                    break;
+                } 
+            }
+            
+        }
+        node.setBestMove(bestMove);
+        return v;
+    }
+
+    public static class AIStoppedException extends Exception {
+
+        public AIStoppedException() {
+            System.out.println("Your time is out.");
+        }
+    }
+    
     @Override
     public Integer getValue() {
         return 0;
+    }
+    
+    @Override
+    public void stop() {
+        this.stopped = true;
     }
 }
