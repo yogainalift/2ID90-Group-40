@@ -74,8 +74,7 @@ public class AlphaBetaSearcher {
                     break;
                 }
             }
-        }
-        else {
+        } else {
             v = Integer.MAX_VALUE;
             List<Move> moves = state.getMoves();
             if (moves != null) {
@@ -98,6 +97,7 @@ public class AlphaBetaSearcher {
                     break;
                 }
             }
+
         }
         node.setBestMove(bestMove);
         return v;
