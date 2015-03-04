@@ -21,6 +21,7 @@ public class GameNode {
     public GameNode(DraughtsState s) {
         this.state = s;
         this.value = 0;
+
     }
 
     DraughtsState getGameState() {
@@ -42,17 +43,52 @@ public class GameNode {
     //whites are more = +
     //blacks are more = -
     int simpleHeuristic() {
-        int whitePieces=0;
-        int blackPieces=0;
-        for (Integer i : state.getPieces()) {
-            if (i == 1) {
-                whitePieces++;
+        int playerOne = 0;
+        int playerTwo = 0;
+
+        for (int i = 1; i < 50; i++) {
+            if (state.getPiece(i) == 1) {
+                playerOne += 10;
+                if (inCenter(i)) {
+                    playerOne += 1;
+                }
+                if (firstRow(i)) {
+                    playerOne += 1;
+                }
+                if (lastRow(i)){
+                    playerOne +=2;
+                }
             }
-            else if (i == 2) {
-                blackPieces++;
+            else if (state.getPiece(i) == 2) {
+                playerTwo += 10;
+                if (inCenter(i)) {
+                    playerTwo += 1;
+                }
+                if (firstRow(i)) {
+                    playerTwo +=2;
+                }
+                if (lastRow(i)){
+                    playerTwo += 1;
+                }
             }
         }
-        return whitePieces-blackPieces;
+        return playerOne - playerTwo;
+    }
+
+    //checks if piece is in center
+    private boolean inCenter(int i) {
+        return i > 16 && i < 20
+                || i > 21 && i < 25
+                || i > 26 && i < 30
+                || i > 31 && i < 35;
+    }
+
+    private boolean firstRow(int i) {
+        return i > 0 && i < 6;
+    }
+
+    private boolean lastRow(int i) {
+        return i > 45 && i < 51;
     }
 
     void setValue(int v) {

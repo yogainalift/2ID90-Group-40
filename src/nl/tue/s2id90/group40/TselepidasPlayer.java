@@ -16,7 +16,7 @@ import org10x10.dam.game.Move;
 public class TselepidasPlayer extends DraughtsPlayer {
 
     AlphaBetaSearcher abs;
-    
+
     public TselepidasPlayer() {
         super(UninformedPlayer.class.getResource("resources/optimist.png"));
     }
@@ -27,14 +27,13 @@ public class TselepidasPlayer extends DraughtsPlayer {
      */
     public Move getMove(DraughtsState s) {
         List<Move> moves = s.getMoves();
-        
+        System.out.println(moves);
         //init a gamenode and getWhiteSize or getBlackSize is possible.
-        
         if (moves.size() == 1) {
             return moves.get(0);
         }
         Move best = null;
-        
+
         GameNode someNode = new GameNode(s);
         abs = new AlphaBetaSearcher();
         int i = 1;
@@ -48,7 +47,7 @@ public class TselepidasPlayer extends DraughtsPlayer {
         } catch (AlphaBetaSearcher.AIStoppedException ex) {
             //Logger.getLogger(TselepidasPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return best;
     }
 

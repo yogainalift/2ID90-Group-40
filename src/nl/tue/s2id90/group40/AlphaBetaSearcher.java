@@ -26,15 +26,16 @@ public class AlphaBetaSearcher {
     public void stop() {
         stopped = true;
     }
-    
-    public long getTime(){
+
+    public long getTime() {
         return start;
     }
-    
+
     int alphaBeta(GameNode node, int alpha, int beta, boolean maxPlayer, int depth)
             throws AIStoppedException {
         //To be able to stop alpha-beta function.
         DraughtsState state = node.getGameState(); //they 
+
         if (stopped) {
             stopped = false;
             throw new AIStoppedException();
@@ -42,23 +43,25 @@ public class AlphaBetaSearcher {
         if (depth == 0 || state.isEndState()) {
             return node.simpleHeuristic(); //the heuristic value of node
         }
-        if (System.currentTimeMillis()-getTime()>3000){
+        if (System.currentTimeMillis() - getTime() > 3000) {
             stopped = true;
         }
-        
+
         int v;
         Move bestMove = null;
-        
+
         if (maxPlayer) {
-            
+
             v = Integer.MIN_VALUE;
             List<Move> moves = state.getMoves();
-            if (moves != null) bestMove = moves.get(0);
+            if (moves != null) {
+                bestMove = moves.get(0);
+            }
             for (Move move : moves) {
                 state.doMove(move);  // Check if state changes after doMove
                 GameNode child = new GameNode(state);
                 int alphaBeta = alphaBeta(child, alpha, beta, false, depth - 1);
-                
+
                 if (v < alphaBeta) {
                     bestMove = move;
                     v = alphaBeta;
@@ -69,18 +72,20 @@ public class AlphaBetaSearcher {
                 state.undoMove(move);
                 if (beta <= alpha) {
                     break;
-                } 
+                }
             }
-        } else {
-
+        }
+        else {
             v = Integer.MAX_VALUE;
             List<Move> moves = state.getMoves();
-            if (moves != null) bestMove = moves.get(0);
+            if (moves != null) {
+                bestMove = moves.get(0);
+            }
             for (Move move : moves) {
                 state.doMove(move);  // Check if state changes after doMove
                 GameNode child = new GameNode(state);
                 int alphaBeta = alphaBeta(child, alpha, beta, true, depth - 1);
-                
+
                 if (v > alphaBeta) {
                     bestMove = move;
                     v = alphaBeta;
@@ -91,9 +96,8 @@ public class AlphaBetaSearcher {
                 state.undoMove(move);
                 if (beta <= alpha) {
                     break;
-                } 
-            }            
-            
+                }
+            }
         }
         node.setBestMove(bestMove);
         node.setValue(v);
