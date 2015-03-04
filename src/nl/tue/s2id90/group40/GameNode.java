@@ -15,13 +15,15 @@ import org10x10.dam.game.Move;
 public class GameNode {
 
     Move bestMove;
-    int value;
     DraughtsState state;
 
     public GameNode(DraughtsState s) {
         this.state = s;
+<<<<<<< HEAD
         this.value = 0;
 
+=======
+>>>>>>> origin/master
     }
 
     DraughtsState getGameState() {
@@ -90,8 +92,5 @@ public class GameNode {
     private boolean lastRow(int i) {
         return i > 45 && i < 51;
     }
-
-    void setValue(int v) {
-        value = v;
-    }
+    
 }
