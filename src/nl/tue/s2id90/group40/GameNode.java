@@ -19,11 +19,6 @@ public class GameNode {
 
     public GameNode(DraughtsState s) {
         this.state = s;
-<<<<<<< HEAD
-        this.value = 0;
-
-=======
->>>>>>> origin/master
     }
 
     DraughtsState getGameState() {
