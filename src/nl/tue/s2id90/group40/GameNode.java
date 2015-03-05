@@ -52,21 +52,29 @@ public class GameNode {
                 if (firstRow(i)) {
                     playerOne += 1;
                 }
-                if (lastRow(i)){
-                    playerOne +=2;
+                if (lastRow(i)) {
+                    playerOne += 2;
                 }
             }
-            else if (state.getPiece(i) == 2) {
+            //White queen
+            if (state.getPiece(i) == 3) {
+                playerOne += 25;
+            }
+            if (state.getPiece(i) == 2) {
                 playerTwo += 10;
                 if (inCenter(i)) {
                     playerTwo += 1;
                 }
                 if (firstRow(i)) {
-                    playerTwo +=2;
+                    playerTwo += 2;
                 }
-                if (lastRow(i)){
+                if (lastRow(i)) {
                     playerTwo += 1;
                 }
+            }
+            //Black queen
+            if (state.getPiece(i) == 4) {
+                playerTwo += 25;
             }
         }
         return playerOne - playerTwo;
@@ -74,10 +82,10 @@ public class GameNode {
 
     //checks if piece is in center
     private boolean inCenter(int i) {
-        return i > 16 && i < 20
-                || i > 21 && i < 25
-                || i > 26 && i < 30
-                || i > 31 && i < 35;
+        return i > 15 && i < 21
+                || i > 20 && i < 26
+                || i > 25 && i < 31
+                || i > 30 && i < 36;
     }
 
     private boolean firstRow(int i) {
@@ -87,5 +95,5 @@ public class GameNode {
     private boolean lastRow(int i) {
         return i > 45 && i < 51;
     }
-    
+
 }
