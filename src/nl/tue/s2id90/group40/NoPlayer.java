@@ -13,11 +13,11 @@ import org10x10.dam.game.Move;
  *
  * @author huub
  */
-public class TselepidasPlayer extends DraughtsPlayer {
+public class NoPlayer extends DraughtsPlayer {
 
     AlphaBetaSearcher abs;
 
-    public TselepidasPlayer() {
+    public NoPlayer() {
         super(UninformedPlayer.class.getResource("resources/optimist.png"));
     }
 
@@ -45,7 +45,7 @@ public class TselepidasPlayer extends DraughtsPlayer {
                 i++;
             }
         } catch (AlphaBetaSearcher.AIStoppedException ex) {
-            //Logger.getLogger(TselepidasPlayer.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(NoPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return best;

@@ -98,10 +98,7 @@ public class GameNode {
         return i > 45 && i < 51;
     }
 
-<<<<<<< HEAD
-=======
     void setValue(int v) {
         value = v;
     }
->>>>>>> origin/master
 }
