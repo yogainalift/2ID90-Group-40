@@ -39,13 +39,14 @@ public class GameNode {
         return bestMove;
     }
 
-    //whites are more = +
-    //blacks are more = -
+    //Linear combination of our heuristics.
     int simpleHeuristic() {
         int playerOne = 0;
         int playerTwo = 0;
 
         for (int i = 1; i < 50; i++) {
+            
+            //WHITE
             if (state.getPiece(i) == 1) {
                 playerOne += 10;
                 if (inCenter(i)) {
@@ -58,10 +59,12 @@ public class GameNode {
                     playerOne += 2;
                 }
             }
-            //White queen
+            //White king
             if (state.getPiece(i) == 3) {
                 playerOne += 25;
             }
+            
+            //BLACK 
             if (state.getPiece(i) == 2) {
                 playerTwo += 10;
                 if (inCenter(i)) {
@@ -74,15 +77,16 @@ public class GameNode {
                     playerTwo += 1;
                 }
             }
-            //Black queen
+            //Black king
             if (state.getPiece(i) == 4) {
                 playerTwo += 25;
             }
         }
-        return playerOne - playerTwo;
+        value = playerOne - playerTwo;
+        return value;
     }
 
-    //checks if piece is in center
+    //checks if piece is in rows 3,4,5,6
     private boolean inCenter(int i) {
         return i > 15 && i < 21
                 || i > 20 && i < 26
@@ -90,10 +94,12 @@ public class GameNode {
                 || i > 30 && i < 36;
     }
 
+    //the blocks of the upper row
     private boolean firstRow(int i) {
         return i > 0 && i < 6;
     }
 
+    //the blocks of the last row
     private boolean lastRow(int i) {
         return i > 45 && i < 51;
     }
